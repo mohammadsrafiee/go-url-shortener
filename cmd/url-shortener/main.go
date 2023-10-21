@@ -2,13 +2,14 @@ package main
 
 import (
 	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
-	"github.com/swaggo/gin-swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"url-shortener/api/handlers"
 	cacheManagement "url-shortener/pkg/cache-management"
 	configReader "url-shortener/pkg/config"
 	logHandler "url-shortener/pkg/log"
+
+	"github.com/gin-gonic/gin"
 )
 
 //	@title			Swagger Example API
@@ -24,27 +25,36 @@ import (
 // @host		localhost:8080
 // @BasePath	/api/v1
 func main() {
-	path := "E:/WS/WS-GO-URL-SHORTENER/url-shortener/configuration/config.yml"
+	path := "C:/Users/rafiee/Desktop/WS-GO/src/go-url-shortener/configuration/config.yml"
 	configReader.GetInstance(path)
 	logHandler.SetupLogger()
 	cacheManagement.NewCacheManagerFactory()()
 
 	engine := gin.Default()
+	defer func() {
+		err := engine.Run(":9191")
+		if err != nil {
+			return
+		}
+	}()
 	handlers.NewShorterConfigRoutes(engine)
+	configSwagger(engine)
+	configCORS(engine)
+}
 
+func configCORS(engine *gin.Engine) {
 	// Create a CORS configuration with your desired settings.
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowOrigins = []string{"*"}
 	engine.Use(cors.New(corsConfig))
+}
 
-	logHandler.Logger().Info("start program")
-
-	// Serve the Swagger documentation on /swagger URL
-	// http://localhost:8080/swagger/index.html
-	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-	err := engine.Run(":8080")
-	if err != nil {
-		return
-	}
+func configSwagger(engine *gin.Engine) {
+	//// Serve the Swagger documentation on /swagger URL
+	//// http://localhost:8080/swagger/index.html
+	engine.GET("/swagger/*any", ginSwagger.WrapHandler(
+		swaggerFiles.Handler,
+		//ginSwagger.URL("http://localhost:9191/docs/swagger.json"),
+		ginSwagger.DefaultModelsExpandDepth(1),
+		ginSwagger.DeepLinking(true)))
 }
