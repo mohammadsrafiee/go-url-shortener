@@ -3,7 +3,7 @@ package handlers
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	shortenerConfig "url-shortener/internal/shortener"
+	shortenerConfig "url-shortener/internal/shortener-config"
 )
 
 var items []shortenerConfig.ShortenerConfig

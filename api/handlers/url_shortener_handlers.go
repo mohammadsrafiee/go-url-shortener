@@ -1,10 +1,10 @@
-package shortenerConfig
+package handlers
 
 import (
 	"errors"
 	"fmt"
 	"time"
-	cacheManagement "url-shortener/pkg/cache-management"
+	cacheManagement "url-shortener/pkg/cache"
 	shortener "url-shortener/pkg/shorter"
 )
 

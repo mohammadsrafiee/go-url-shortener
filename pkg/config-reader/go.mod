@@ -1,4 +1,4 @@
-module url-shortener/pkg/config
+module url-shortener/pkg/config-reader
 
 go 1.19
 

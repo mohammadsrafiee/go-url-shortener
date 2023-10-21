@@ -5,9 +5,11 @@ go 1.19
 require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.1
+	github.com/swaggo/files v1.0.1
+	github.com/swaggo/gin-swagger v1.6.0
 	github.com/swaggo/swag v1.16.2
-	url-shortener/pkg/cache-management v0.0.0-00010101000000-000000000000
-	url-shortener/pkg/config v0.0.0-00010101000000-000000000000
+	url-shortener/pkg/cache v0.0.0-00010101000000-000000000000
+	url-shortener/pkg/config-reader v0.0.0-00010101000000-000000000000
 	url-shortener/pkg/log v0.0.0-00010101000000-000000000000
 	url-shortener/pkg/shorter v0.0.0-00010101000000-000000000000
 )
@@ -43,8 +45,6 @@ require (
 	github.com/pelletier/go-toml/v2 v2.1.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
-	github.com/swaggo/files v1.0.1 // indirect
-	github.com/swaggo/gin-swagger v1.6.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.11 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
@@ -59,12 +59,12 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace url-shortener/pkg/cache-management => ./pkg/cache-management
+replace url-shortener/pkg/cache => ./pkg/cache
 
 replace url-shortener/pkg/erro => ./pkg/error
 
 replace url-shortener/pkg/log => ./pkg/log
 
-replace url-shortener/pkg/config => ./pkg/config
+replace url-shortener/pkg/config-reader => ./pkg/config-reader
 
 replace url-shortener/pkg/shorter => ./pkg/shorter

@@ -4,24 +4,24 @@ import (
 	"time"
 )
 
-type EventType int
+type Type int
 
 type Event struct {
-	EventType
+	Type
 	Message string
 	time    time.Time
 }
 
 const (
-	CREATE EventType = iota // EnumIndex = 0
-	VIEW                    // EnumIndex = 1
+	CREATE Type = iota // EnumIndex = 0
+	VIEW               // EnumIndex = 1
 )
 
-func (event EventType) String() string {
+func (event Type) String() string {
 	return [...]string{"CREATE", "VIEW"}[event]
 }
 
-func (event EventType) EnumIndex() int {
+func (event Type) EnumIndex() int {
 	return int(event)
 }
 

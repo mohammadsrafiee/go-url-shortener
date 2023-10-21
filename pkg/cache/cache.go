@@ -1,10 +1,10 @@
-package cacheManagement
+package cache
 
 import (
 	"github.com/go-redis/redis/v8"
 	"strings"
 	"sync"
-	"url-shortener/pkg/config"
+	"url-shortener/pkg/config-reader"
 )
 
 type CacheManagement interface {

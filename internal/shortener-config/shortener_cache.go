@@ -1,10 +1,9 @@
-package shortenerConfigCache
+package shortenerConfig
 
 import (
 	"encoding/json"
 	"fmt"
-	shortenerConfigModel "url-shortener/internal/shortener"
-	cacheManagement "url-shortener/pkg/cache-management"
+	cacheManagement "url-shortener/pkg/cache"
 	logHandler "url-shortener/pkg/log"
 )
 
@@ -13,16 +12,16 @@ var (
 	cache  = cacheManagement.NewCacheManagerFactory()()
 )
 
-type ShortenerConfigCache struct {
+type Cache struct {
 }
 
-func NewShortenerConfigCacheRepository() *ShortenerConfigCache {
-	return &ShortenerConfigCache{}
+func NewShortenerConfigCacheRepository() *Cache {
+	return &Cache{}
 }
 
-func (repository *ShortenerConfigCache) GetById(id string) (*shortenerConfigModel.ShortenerConfig, error) {
+func (repository *Cache) GetById(id string) (*ShortenerConfig, error) {
 
-	var result shortenerConfigModel.ShortenerConfig
+	var result ShortenerConfig
 
 	cachedConfig, err := cache.Get(id)
 	if err != nil {
@@ -36,7 +35,7 @@ func (repository *ShortenerConfigCache) GetById(id string) (*shortenerConfigMode
 	return &result, nil
 }
 
-func (repository *ShortenerConfigCache) Create(key string, value *shortenerConfigModel.ShortenerConfig) error {
+func (repository *Cache) Create(key string, value *ShortenerConfig) error {
 	jsonData, err := json.Marshal(&value)
 	if err != nil {
 		logHandler.Logger().Debug("Error marshalling data to JSON:" + err.Error())
@@ -51,7 +50,7 @@ func (repository *ShortenerConfigCache) Create(key string, value *shortenerConfi
 	return nil
 }
 
-func (repository *ShortenerConfigCache) Delete(key string) error {
+func (repository *Cache) Delete(key string) error {
 	err := cache.Delete(key)
 	if err != nil {
 		logger.Debug("Error deleting key:" + err.Error())

@@ -1,10 +1,10 @@
-module url-shortener/pkg/cache-management
+module url-shortener/pkg/cache
 
 go 1.19
 
 require (
 	github.com/go-redis/redis/v8 v8.11.5
-	url-shortener/pkg/config v0.0.0-00010101000000-000000000000
+	url-shortener/pkg/config-reader v0.0.0-00010101000000-000000000000
 )
 
 require (
@@ -13,4 +13,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace url-shortener/pkg/config => ./../config
+replace url-shortener/pkg/config-reader => ./../config-reader

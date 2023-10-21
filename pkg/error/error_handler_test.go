@@ -1,4 +1,4 @@
-package error_handler_test
+package errorHandler_test
 
 import (
 	"log"

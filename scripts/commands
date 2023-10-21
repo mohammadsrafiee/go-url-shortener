@@ -1,0 +1,6 @@
+go get -u -v all    // get all dependencites
+go mod tidy         // ?
+sync module         // ? command find
+replace directive command   ?
+work file init command      ?
+

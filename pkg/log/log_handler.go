@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
-	configReader "url-shortener/pkg/config"
+	configReader "url-shortener/pkg/config-reader"
 )
 
 var (

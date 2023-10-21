@@ -1,16 +1,6 @@
 package configReader
 
-import (
-	"gopkg.in/yaml.v3"
-	"io/ioutil"
-	"sync"
-	"time"
-)
-
-var (
-	instance *Config
-	once     sync.Once
-)
+import "time"
 
 type Config struct {
 	Server   ServerConfig   `yaml:"server"`
@@ -40,23 +30,4 @@ type Cache struct {
 	Password string `yaml:"password"`
 	Username string `yaml:"username"`
 	Db       string `yaml:"db"`
-}
-
-func GetInstance(path ...string) *Config {
-	once.Do(func() {
-		if len(path) > 0 {
-			yamlFile, err := ioutil.ReadFile(path[0])
-			if err != nil {
-				panic(err)
-			}
-			if err := yaml.Unmarshal(yamlFile, &instance); err != nil {
-				panic(err)
-			}
-		}
-	})
-	return instance
-}
-
-func Configuration() *Config {
-	return instance
 }

@@ -5,8 +5,8 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"url-shortener/api/handlers"
-	cacheManagement "url-shortener/pkg/cache-management"
-	configReader "url-shortener/pkg/config"
+	cacheManagement "url-shortener/pkg/cache"
+	configReader "url-shortener/pkg/config-reader"
 	logHandler "url-shortener/pkg/log"
 
 	"github.com/gin-gonic/gin"
