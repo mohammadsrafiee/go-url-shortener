@@ -1,0 +1,16 @@
+server:
+  address: "localhost:8080"
+  timeout: 10s
+database:
+  is-active: false
+  connection_string: "user:password@tcp(dbserver:3306)/mydatabase"
+log:
+  level: 0
+  path: "E:/log"
+cache:
+  type: redis
+  address: "localhost:6379"
+  password:
+  username:
+  path:
+  db:
