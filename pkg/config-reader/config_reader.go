@@ -11,21 +11,21 @@ var (
 	once     sync.Once
 )
 
-func GetInstance(path ...string) *Config {
+func Instance() *Config {
+	return instance
+}
+
+func ConfigFactory(path string) {
 	once.Do(func() {
-		if len(path) > 0 {
-			yamlFile, err := ioutil.ReadFile(path[0])
+		if instance == nil {
+			instance = &Config{} // Initialize the instance here
+			yamlFile, err := ioutil.ReadFile(path)
 			if err != nil {
 				panic(err)
 			}
-			if err := yaml.Unmarshal(yamlFile, &instance); err != nil {
+			if err := yaml.Unmarshal(yamlFile, instance); err != nil {
 				panic(err)
 			}
 		}
 	})
-	return instance
-}
-
-func Configuration() *Config {
-	return instance
 }

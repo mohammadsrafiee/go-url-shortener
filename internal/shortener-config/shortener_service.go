@@ -7,8 +7,8 @@ import (
 var (
 	//cache           = cacheManagement.NewCacheManagerFactory()()
 	//logger          = logHandler.Logger()
-	repository      = NewShortenerConfigRepository()
-	cacheRepository = NewShortenerConfigCacheRepository()
+	repository      *Repository
+	cacheRepository *Cache
 )
 
 type StorageService interface {
@@ -23,6 +23,8 @@ type Service struct {
 }
 
 func NewShortenerConfigService() *Service {
+	repository = NewShortenerConfigRepository()
+	cacheRepository = NewShortenerConfigCacheRepository()
 	return &Service{}
 }
 

@@ -1,8 +1,9 @@
 server:
-  address: "localhost:8080"
+  port: 9191
+  domain: "localhost"
   timeout: 10s
 database:
-  is-active: false
+  type: in-memory
   connection_string: "user:password@tcp(dbserver:3306)/mydatabase"
 log:
   level: 0

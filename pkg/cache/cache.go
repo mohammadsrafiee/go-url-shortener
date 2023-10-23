@@ -7,7 +7,7 @@ import (
 	"url-shortener/pkg/config-reader"
 )
 
-type CacheManagement interface {
+type Management interface {
 	SetString(key string, value string, expire int) error
 	Set(key string, value interface{}, expire int) error
 	Sets(values map[string]string, expire int) error
@@ -17,32 +17,33 @@ type CacheManagement interface {
 
 var (
 	once            sync.Once
-	dictionaryCache CacheManagement
-	redisCache      CacheManagement
+	dictionaryCache Management
+	redisCache      Management
 )
 
-// NewCacheManagerFactory returns a factory function for creating CacheManagement instances.
-func NewCacheManagerFactory() func() CacheManagement {
-	return func() CacheManagement {
-		config := configReader.GetInstance()
-		cacheType := config.Cache.Type
-
-		once.Do(func() {
-			if strings.ToUpper(cacheType) == strings.ToUpper("redis") {
-				redisCache = newRedisCacheManagement()
-				dictionaryCache = nil
-			} else {
-				dictionaryCache = newDictionaryCacheManagement()
-				redisCache = nil
-			}
-		})
-
-		if strings.ToUpper(cacheType) == strings.ToUpper("redis") {
-			return redisCache
-		} else {
-			return dictionaryCache
-		}
+func Instance() Management {
+	config := configReader.Instance()
+	cacheType := config.Cache.Type
+	if strings.ToUpper(cacheType) == strings.ToUpper("redis") {
+		return redisCache
+	} else {
+		return dictionaryCache
 	}
+}
+
+// ManagementFactory returns a factory function for creating Management instances.
+func ManagementFactory() {
+	once.Do(func() {
+		config := configReader.Instance()
+		cacheType := config.Cache.Type
+		if strings.ToUpper(cacheType) == strings.ToUpper("redis") {
+			redisCache = newRedisCacheManagement()
+			dictionaryCache = nil
+		} else {
+			dictionaryCache = newDictionaryCacheManagement()
+			redisCache = nil
+		}
+	})
 }
 
 // NewDictionaryCacheManagement creates a new instance of DictionaryCacheManager.
@@ -54,7 +55,7 @@ func newDictionaryCacheManagement() *DictionaryCacheManager {
 
 // NewRedisCacheManagement creates a new instance of RedisCacheManager.
 func newRedisCacheManagement() *RedisCacheManager {
-	config := configReader.GetInstance()
+	config := configReader.Instance()
 	return &RedisCacheManager{
 		client: redis.NewClient(&redis.Options{
 			Addr:     config.Cache.Address,

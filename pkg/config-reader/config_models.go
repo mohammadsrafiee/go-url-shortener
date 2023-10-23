@@ -10,12 +10,13 @@ type Config struct {
 }
 
 type ServerConfig struct {
-	Address string        `yaml:"address"`
+	Port    string        `yaml:"port"`
+	Domain  string        `yaml:"domain"`
 	Timeout time.Duration `yaml:"timeout"`
 }
 
 type DatabaseConfig struct {
-	IsActive         bool   `yaml:"is-active"`
+	Type             string `yaml:"type"`
 	ConnectionString string `yaml:"connection_string"`
 }
 

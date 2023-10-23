@@ -19,7 +19,7 @@ func Logger() *zap.Logger {
 }
 
 func LogWriter() zapcore.WriteSyncer {
-	var config = configReader.Configuration()
+	var config = configReader.Instance()
 	logRotate, _ := rotatelogs.New(
 		config.Log.Path+".%Y%m%d%H%M",
 		rotatelogs.WithLinkName(config.Log.Path),
@@ -29,8 +29,8 @@ func LogWriter() zapcore.WriteSyncer {
 	return zapcore.AddSync(logRotate)
 }
 
-func SetupLogger() {
-	var config = configReader.Configuration()
+func LoggerFactory() {
+	var config = configReader.Instance()
 	level, _ := zapcore.ParseLevel(string(rune(config.Log.Level)))
 	encoderCfg := zap.NewProductionEncoderConfig()
 	encoderCfg.EncodeTime = zapcore.ISO8601TimeEncoder

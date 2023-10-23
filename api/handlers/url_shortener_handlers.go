@@ -25,7 +25,7 @@ func CreateShortUrl(url string) (string, error) {
 		return "", errors.New("URL is empty")
 	}
 
-	cache := cacheManagement.NewCacheManagerFactory()()
+	cache := cacheManagement.Instance()
 	shortUrlCached, err := cache.Get(SRC + url)
 	if err != nil {
 		return "", fmt.Errorf("Failed to get short URL from cache: %v", err)
@@ -37,7 +37,7 @@ func CreateShortUrl(url string) (string, error) {
 	return generateShortURL(url, cache)
 }
 
-func generateShortURL(url string, cache cacheManagement.CacheManagement) (string, error) {
+func generateShortURL(url string, cache cacheManagement.Management) (string, error) {
 	shortenerGenerator := shortener.Shortener{
 		Algorithm: shortener.CRC32,
 	}

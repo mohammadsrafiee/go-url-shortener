@@ -8,11 +8,11 @@ import (
 
 var items []shortenerConfig.ShortenerConfig
 
-// @summary This handler return all shortener configs.
-// @description Administrator can define shortener config and manipulate them. profiling for this usecase is not exit
-// @produce json
-// @success 200 {object} ShortenerConfig
-// @router /api/shortener-config [get]
+// @summary		This handler return all shortener configs.
+// @description	Administrator can define shortener config and manipulate them. profiling for this usecase is not exit
+// @produce		json
+// @success		200	{object} shortenerConfig.ShortenerConfig
+// @router			/api/shortener-config [get]
 func GetShortenerConfigs(c *gin.Context) {
 	c.JSON(http.StatusOK, items)
 }

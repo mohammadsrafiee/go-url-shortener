@@ -4,3 +4,6 @@ sync module         // ? command find
 replace directive command   ?
 work file init command      ?
 
+
+swag init -g cmd/url-shortener/main.go -o docs --pd --pdl 3 --md true --parseInternal --generatedTime --cef true --parseDepth 500 --requiredByDefault false --parseGoList -d cmd/url-shortener/,api/handlers/
+

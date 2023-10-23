@@ -3,19 +3,22 @@ package shortenerConfig
 import (
 	"encoding/json"
 	"fmt"
+	"go.uber.org/zap"
 	cacheManagement "url-shortener/pkg/cache"
 	logHandler "url-shortener/pkg/log"
 )
 
 var (
-	logger = logHandler.Logger()
-	cache  = cacheManagement.NewCacheManagerFactory()()
+	logger *zap.Logger
+	cache  cacheManagement.Management
 )
 
 type Cache struct {
 }
 
 func NewShortenerConfigCacheRepository() *Cache {
+	logger = logHandler.Logger()
+	cache = cacheManagement.Instance()
 	return &Cache{}
 }
 
